@@ -134,11 +134,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-
 # Configuration       
 cloudinary.config(
     cloud_name = config('CLOUD_NAME' , default="") ,
@@ -146,6 +141,9 @@ cloudinary.config(
     api_secret = config('API_SECRET' , default=""),
     secure=True
 )
+
+
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
