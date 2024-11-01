@@ -1,0 +1,138 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Header -->
+                    <h1 class="text-center text-danger mb-4">Shipping Policy</h1>
+                    
+                    <!-- Intro -->
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Please read our shipping policy carefully to understand how we handle deliveries.
+                    </div>
+
+                    <!-- Shipping Methods -->
+                    <section class="mb-4">
+                        <h3 class="text-danger mb-3">
+                            <i class="fas fa-truck me-2"></i>
+                            Shipping Methods
+                        </h3>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <strong>Primary Carriers:</strong>
+                                        <ul>
+                                            <li>USPS</li>
+                                            <li>CJ Packet Ordinary</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Processing Time -->
+                    <section class="mb-4">
+                        <h3 class="text-danger mb-3">
+                            <i class="fas fa-clock me-2"></i>
+                            Processing & Delivery Time
+                        </h3>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <p><strong>Standard Shipping Time:</strong> 10-25 business days</p>
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Important Note:</strong> All our products are made to order to ensure the highest possible quality. This may affect processing times.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tracking -->
+                    <section class="mb-4">
+                        <h3 class="text-danger mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            Order Tracking
+                        </h3>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <p>Once your order ships, you will receive a tracking number via email.</p>
+                                <p class="mb-0">If you haven't received your order within the expected timeframe, please:</p>
+                                <ul>
+                                    <li>Contact us through our <a href="{% url 'store' %}" class="text-danger">contact page</a></li>
+                                    <li>Email us directly at <a href="mailto:support@gnomesville.com" class="text-danger">support@gnomesville.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Additional Information -->
+                    <section>
+                        <h3 class="text-danger mb-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Additional Information
+                        </h3>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">• Orders are processed Monday through Friday</li>
+                                    <li class="mb-2">• Shipping times may vary during peak seasons</li>
+                                    <li class="mb-2">• International duties and taxes are the responsibility of the recipient</li>
+                                    <li>• We are not responsible for delays due to customs</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Contact Support Button -->
+            <div class="text-center mt-4">
+                <a href="{% url 'store' %}" class="btn btn-danger">
+                    <i class="fas fa-envelope me-2"></i>
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 10px;
+        border: none;
+    }
+    
+    .alert {
+        border-radius: 8px;
+    }
+    
+    .text-danger {
+        color: #e74c3c !important;
+    }
+    
+    .btn-danger {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+    }
+    
+    section {
+        transition: transform 0.2s;
+    }
+    
+    section:hover {
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock content %}

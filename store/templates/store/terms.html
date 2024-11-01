@@ -1,0 +1,109 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Terms of Service</h1>
+                    
+                    <div class="terms-content">
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">OVERVIEW</h2>
+                            <p>This website is operated by GnomesVille. Throughout the site, the terms "we", "us" and "our" refer to GnomesVille. GnomesVille offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">ONLINE STORE TERMS</h2>
+                            <p>By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.</p>
+                            <ul>
+                                <li>You may not use our products for any illegal or unauthorized purpose.</li>
+                                <li>You must not transmit any worms or viruses or any code of a destructive nature.</li>
+                                <li>A breach or violation of any of the Terms will result in immediate termination of your Services.</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">GENERAL CONDITIONS</h2>
+                            <ul>
+                                <li>We reserve the right to refuse service to anyone for any reason at any time.</li>
+                                <li>You understand that your content (not including credit card information), may be transferred unencrypted and involve transmissions over various networks.</li>
+                                <li>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service.</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">ACCURACY OF BILLING AND ACCOUNT INFORMATION</h2>
+                            <p>We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel quantities purchased per person, per household or per order. These restrictions may include orders placed by or under the same customer account, the same credit card, and/or orders that use the same billing and/or shipping address.</p>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">CONTACT INFORMATION</h2>
+                            <p>Questions about the Terms of Service should be sent to us at <a href="mailto:support@gnomesville.com">support@gnomesville.com</a></p>
+                        </section>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'store' %}" class="btn btn-outline-danger">Return to Store</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .terms-content {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #4a4a4a;
+    }
+    
+    .terms-content section {
+        padding: 1rem;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .terms-content h2 {
+        color: #e74c3c;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #f8d7da;
+    }
+    
+    .terms-content ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .terms-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 1rem;
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .terms-content section {
+            padding: 0.75rem;
+        }
+    }
+</style>
+
+{% endblock content %}

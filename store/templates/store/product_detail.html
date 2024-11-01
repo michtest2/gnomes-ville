@@ -1,0 +1,273 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <img src="{{ product.imageURL }}" class="card-img" alt="{{ product.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ product.name }}</h2>
+                            <h3 class="text-success">${{ product.price }}</h3>
+                            
+                            <hr>
+                            <p class="card-text">
+                                {{ product.description }}
+                            </p>
+                            
+                            <div class="mt-4">
+                                <button data-product="{{ product.id }}" 
+                                        data-action="add" 
+                                        class="btn btn-primary btn-lg update-cart">
+                                    Add to Cart
+                                </button>
+                            </div>
+                            
+                            <!-- Additional product details -->
+                            <div class="mt-4">
+                                <h4>Product Details:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>SKU:</strong> {{ product.id }}</li>
+                                    <li><strong>Category:</strong> {{ product.category }}</li>
+                                    <li><strong>Stock:</strong> {% if product.digital %}Digital Product{% else %}In Stock{% endif %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.reviews-container {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-top: 3px solid #e74c3c;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    margin-right: 10px;
+    color: #e74c3c;
+}
+
+.ratings-overview {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.ratings-summary {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    flex: 1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.average-rating {
+    font-size: 36px;
+    color: #e74c3c;
+    margin: 0;
+}
+
+.rating-bars {
+    margin-top: 20px;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.star-label {
+    width: 30px;
+    margin-right: 10px;
+    color: #c0392b;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    background: #e9ecef;
+    height: 8px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.progress-fill {
+    background: #e74c3c;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.rating-count {
+    width: 50px;
+    color: #666;
+    font-size: 14px;
+}
+
+.reviews-list {
+    flex: 2;
+}
+
+.review {
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stars {
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.review-title {
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.review-text {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.review-meta {
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verified-badge {
+    color: #e74c3c;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.verified-icon {
+    color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+    .ratings-overview {
+        flex-direction: column;
+    }
+}
+</style>
+
+<div class="reviews-container">
+    <a href="#" class="back-link">
+        <span class="back-arrow">←</span>
+        Verified Customer Feedback
+    </a>
+
+    <div class="ratings-overview">
+        <div class="ratings-summary">
+            <h2 class="average-rating">3.7/5</h2>
+            <p>21459 verified ratings</p>
+            
+            <div class="rating-bars">
+                <div class="rating-bar">
+                    <span class="star-label">5★</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                    <span class="rating-count">(8)</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="star-label">4★</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                    <span class="rating-count">(3)</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="star-label">3★</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                    <span class="rating-count">(2)</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="star-label">2★</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                    <span class="rating-count">(1)</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="star-label">1★</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10%"></div>
+                    </div>
+                    <span class="rating-count">(1)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-list">
+            <div class="review">
+                <div class="stars">★★★★★</div>
+                <div class="review-title">Perfect Gnome!</div>
+                <div class="review-text">The craftsmanship is excellent and it looks amazing in my garden.</div>
+                <div class="review-meta">
+                    <span>29-10-2024 by Sarah Smith</span>
+                    <span class="verified-badge">
+                        <span class="verified-icon">✓</span>
+                        Verified Purchase
+                    </span>
+                </div>
+            </div>
+
+            <div class="review">
+                <div class="stars">★★★★</div>
+                <div class="review-title">Great Addition to My Collection</div>
+                <div class="review-text">The colors are vibrant and the details are perfect.</div>
+                <div class="review-meta">
+                    <span>29-10-2024 by John Doe</span>
+                    <span class="verified-badge">
+                        <span class="verified-icon">✓</span>
+                        Verified Purchase
+                    </span>
+                </div>
+            </div>
+
+            <div class="review">
+                <div class="stars">★★★★★</div>
+                <div class="review-title">Fantastic Quality</div>
+                <div class="review-text">This gnome exceeded my expectations. Worth every penny!</div>
+                <div class="review-meta">
+                    <span>28-10-2024 by Emma Wilson</span>
+                    <span class="verified-badge">
+                        <span class="verified-icon">✓</span>
+                        Verified Purchase
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

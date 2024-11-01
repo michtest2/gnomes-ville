@@ -1,0 +1,411 @@
+
+
+
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    {% csrf_token %}
+                    <div id="user-info">
+                        <div class="form-field">
+                            <input required class="form-control" type="text" id="name" name="name" placeholder="Name..">
+                        </div>
+    
+                        <div class="form-field"> 
+                            <input required class="form-control" type="email" id="email" name="email" placeholder="Email..">
+                        </div>
+                    </div>
+    
+                    <div id="shipping-info">
+                        <hr>
+                        <p>Shipping Information:</p>
+                        <hr>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="address" id="address" placeholder="Address..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="city" id="city" placeholder="City..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="state" id="state" placeholder="State..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="zipcode" id="zipcode" placeholder="Zip code.." pattern="[0-9]*">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="country" id="country" placeholder="Country..">
+                        </div>
+                    </div>
+                    <hr>
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                </form>
+            </div>
+
+            <div class="box-element hidden" id="payment-info">
+                <div class="payment-header">
+                    <h4>Payment Options</h4>
+                </div>
+                
+                <div class="payment-methods">
+                    <button id="paypal-button" class="btn btn-primary btn-block mb-3">
+                        <i class="fab fa-paypal me-2"></i> Pay with PayPal
+                    </button>
+                    
+                    <button id="venmo-button" class="btn btn-info btn-block mb-3">
+                        <i class="fab fa-venmo me-2"></i> Pay with Venmo
+                    </button>
+            
+                    <div id="paypal-instructions" class="payment-instructions hidden">
+                        <div class="alert alert-info">
+                            <h5>PayPal Payment Instructions</h5>
+                            <hr>
+                            <form action="{% url 'process_order' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="payment_method" value="paypal">
+                                <ul>
+                                    <li>Send the total amount of $<span class="payment-amount">{{order.get_total_price|floatformat:2}}</span> to:
+                                        <div class="paypal-email mt-2 mb-2">
+                                            <strong id="paypal-email">{{payment_tag.paypal}}</strong>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="copyPaymentInfo('paypal')">
+                                            <i class="far fa-copy"></i> Copy
+                                        </button>
+                                    </li>
+                                    <li>As a small business, we are currently using  a personal PayPal account.Kindly make the payment as a <strong><span class="order-reference"> Family and Friends</span></strong> transaction!</li>
+                                    <li>Once payment is sent, take a screenshot of your payment receipt</li>
+                                    <li>Upload the screenshot below and click "I've Sent Payment"</li>
+                                </ul>
+                                <div class="mb-3">
+                                    <div class="custom-file-upload">
+                                        <label for="paypal-receipt" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt me-2"></i>
+                                            <span class="upload-text">Upload Payment Receipt</span>
+                                            <input type="file" class="file-upload-input" id="paypal-receipt" name="receipt" accept="image/*" required>
+                                        </label>
+                                        <div class="selected-file" id="paypal-file-name"></div>
+                                    </div>
+                                    <div class="image-preview mt-2" id="paypal-preview"></div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block mt-3">
+                                    I've Sent Payment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+            
+                    <div id="venmo-instructions" class="payment-instructions hidden">
+                        <!-- Similar structure for Venmo form with unique IDs -->
+                        <div class="alert alert-info">
+                            <h5>Venmo Payment Instructions</h5>
+                            <hr>
+                            <form action="{% url 'process_order' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="payment_method" value="venmo">
+                                <ul>
+                                    <li>Send the total amount of $<span class="payment-amount">{{order.get_total_price|floatformat:2}}</span> to:
+                                        <div class="venmo-username mt-2 mb-2">
+                                            <strong id="venmo-username">{{payment_tag.venmo}}</strong>
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-sm btn-outline-info ms-2" onclick="copyPaymentInfo('venmo')">
+                                            <i class="far fa-copy"></i> Copy
+                                        </button>
+                                    </li>
+                                    <li>As a small business, we are currently using a personal Venmo account. Kindly make the payment as a <strong><span class="order-reference"> Family and Friends</span></strong> transaction!</li>
+                                    <li>Once payment is sent, take a screenshot of your payment receipt</li>
+                                    <li>Upload the screenshot below and click "I've Sent Payment"</li>
+                                </ul>
+                                <div class="mb-3">
+                                    <div class="custom-file-upload">
+                                        <label for="venmo-receipt" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt me-2"></i>
+                                            <span class="upload-text">Upload Payment Receipt</span>
+                                            <input type="file" class="file-upload-input" id="venmo-receipt" name="receipt" accept="image/*" required>
+                                        </label>
+                                        <div class="selected-file" id="venmo-file-name"></div>
+                                    </div>
+                                    <div class="image-preview mt-2" id="venmo-preview"></div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block mt-3">
+                                    I've Sent Payment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .hidden {
+                    display: none;
+                }
+                
+                .payment-instructions {
+                    margin-top: 20px;
+                    transition: all 0.3s ease;
+                }
+                
+                .payment-instructions.show {
+                    display: block;
+                }
+                
+                .paypal-email, .venmo-username {
+                    background: #f8f9fa;
+                    padding: 10px;
+                    border-radius: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                
+                #paypal-button {
+                    background-color: #0070ba;
+                    border-color: #0070ba;
+                    font-weight: bold;
+                }
+                
+                #paypal-button:hover {
+                    background-color: #005ea6;
+                    border-color: #005ea6;
+                }
+                
+                #venmo-button {
+                    background-color: hsl(152, 66%, 49%);
+                    border-color: #3D95CE;
+                    font-weight: bold;
+                    color: white;
+                }
+                
+                #venmo-button:hover {
+                    background-color: #3de44b;
+                    border-color: #3273a8;
+                }
+                
+                .custom-file-upload {
+                    margin: 15px 0;
+                }
+                
+                .file-upload-label {
+                    display: inline-block;
+                    padding: 12px 20px;
+                    background: #f8f9fa;
+                    border: 2px dashed #dee2e6;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    width: 100%;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                }
+                
+                .file-upload-label:hover {
+                    background: #e9ecef;
+                    border-color: #adb5bd;
+                }
+                
+                .file-upload-input {
+                    display: none;
+                }
+                
+                .upload-text {
+                    margin-left: 8px;
+                    color: #495057;
+                }
+                
+                .selected-file {
+                    margin-top: 8px;
+                    padding: 8px;
+                    background: #e9ecef;
+                    border-radius: 4px;
+                    font-size: 0.9em;
+                    color: #495057;
+                    display: none;
+                }
+                
+                .selected-file.show {
+                    display: block;
+                }
+                
+                .image-preview {
+                    max-width: 300px;
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+                
+                .image-preview img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                    border: 1px solid #dee2e6;
+                }
+                </style>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Store form and UI elements
+                const form = document.getElementById('form');
+                const formWrapper = document.getElementById('form-wrapper');
+                const paymentInfo = document.getElementById('payment-info');
+                
+                // Store shipping information
+                let shippingInfo = {};
+
+                // Handle initial form submission
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    if (form.checkValidity()) {
+                        // Store shipping information
+                        const formFields = ['name', 'email', 'address', 'city', 'state', 'zipcode', 'country'];
+                        formFields.forEach(field => {
+                            shippingInfo[field] = document.getElementById(field).value;
+                        });
+
+                        // Show payment section
+                        formWrapper.classList.add('hidden');
+                        paymentInfo.classList.remove('hidden');
+                    } else {
+                        form.reportValidity();
+                    }
+                });
+
+                // Update payment forms with shipping info
+                ['paypal', 'venmo'].forEach(method => {
+                    const formElement = document.querySelector(`#${method}-instructions form`);
+                    if (formElement) {
+                        formElement.addEventListener('submit', function(e) {
+                            Object.entries(shippingInfo).forEach(([key, value]) => {
+                                const input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = key;
+                                input.value = value;
+                                formElement.appendChild(input);
+                            });
+                        });
+                    }
+                });
+
+                // Payment method selection
+                const paymentButtons = {
+                    paypal: document.getElementById('paypal-button'),
+                    venmo: document.getElementById('venmo-button')
+                };
+                
+                const instructions = {
+                    paypal: document.getElementById('paypal-instructions'),
+                    venmo: document.getElementById('venmo-instructions')
+                };
+                
+                // Set up image preview handlers
+                ['paypal', 'venmo'].forEach(method => {
+                    setupImagePreview(
+                        `${method}-receipt`,
+                        `${method}-preview`,
+                        `${method}-file-name`
+                    );
+                });
+                
+                function hideAllInstructions() {
+                    Object.values(instructions).forEach(instruction => {
+                        instruction.classList.add('hidden');
+                    });
+                }
+                
+                // Add click handlers for payment buttons
+                Object.entries(paymentButtons).forEach(([method, button]) => {
+                    button?.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        hideAllInstructions();
+                        instructions[method]?.classList.remove('hidden');
+                    });
+                });
+                
+                // Image preview handler
+                function setupImagePreview(inputId, previewId, fileNameId) {
+                    const input = document.getElementById(inputId);
+                    const preview = document.getElementById(previewId);
+                    const fileName = document.getElementById(fileNameId);
+                    
+                    if (!input || !preview || !fileName) return;
+
+                    input.addEventListener('change', function(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            if (!file.type.startsWith('image/')) {
+                                alert('Please upload an image file');
+                                input.value = '';
+                                return;
+                            }
+
+                            fileName.textContent = file.name;
+                            fileName.classList.add('show');
+                            
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.innerHTML = `<img src="${e.target.result}" alt="Receipt preview">`;
+                            }
+                            reader.readAsDataURL(file);
+                            
+                            const uploadText = this.parentElement.querySelector('.upload-text');
+                            if (uploadText) {
+                                uploadText.textContent = 'Change Image';
+                            }
+                        }
+                    });
+                }
+                
+                // Copy payment information handler
+                window.copyPaymentInfo = async function(method) {
+                    const element = document.getElementById(
+                        method === 'paypal' ? 'paypal-email' : 'venmo-username'
+                    );
+                    
+                    if (!element) return;
+                    
+                    try {
+                        await navigator.clipboard.writeText(element.textContent);
+                        alert(`${method.charAt(0).toUpperCase() + method.slice(1)} information copied to clipboard!`);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        // Fallback for browsers that don't support clipboard API
+                        const textArea = document.createElement('textarea');
+                        textArea.value = element.textContent;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        alert(`${method.charAt(0).toUpperCase() + method.slice(1)} information copied to clipboard!`);
+                    }
+                }
+            });
+            </script>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for order_product in order_products %}
+                    <div class="cart-row">
+                        <div style="flex:2"><img class="row-image" src="{{order_product.product.imageURL}}" alt="{{order_product.product.name}}"></div>
+                        <div style="flex:2"><p>{{order_product.product.name}}</p></div>
+                        <div style="flex:1"><p>${{order_product.product.price|floatformat:2}}</p></div>
+                        <div style="flex:1"><p>x{{order_product.quantity}}</p></div>
+                    </div>
+                {% endfor %}
+                <h5>Items: {{order.get_total_quantity}}</h5>
+                <h5>Total: ${{order.get_total_price|floatformat:2}}</h5>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

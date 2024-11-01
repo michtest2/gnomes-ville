@@ -1,0 +1,147 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Return & Refund Policy</h1>
+                    
+                    <div class="terms-content">
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">30-DAY RETURN POLICY</h2>
+                            <p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return. To be eligible for a return, your item must be:</p>
+                            <ul>
+                                <li>In the same condition that you received it</li>
+                                <li>Unworn or unused</li>
+                                <li>With tags attached</li>
+                                <li>In its original packaging</li>
+                                <li>Accompanied by the receipt or proof of purchase</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">RETURN PROCESS</h2>
+                            <p>To start a return, please contact us at <a href="mailto:gnomesville@gmail.com">gnomesville@gmail.com</a>. If your return is accepted, we'll send you:</p>
+                            <ul>
+                                <li>A return shipping label</li>
+                                <li>Detailed instructions on how and where to send your package</li>
+                            </ul>
+                            <p class="alert alert-warning">Please note: Items sent back to us without first requesting a return will not be accepted.</p>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">DAMAGES AND ISSUES</h2>
+                            <p>Please inspect your order upon reception and contact us immediately if:</p>
+                            <ul>
+                                <li>The item is defective</li>
+                                <li>The item is damaged</li>
+                                <li>You received the wrong item</li>
+                            </ul>
+                            <p>We will evaluate the issue and make it right.</p>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">NON-RETURNABLE ITEMS</h2>
+                            <p>The following items cannot be returned:</p>
+                            <ul>
+                                <li>Perishable goods (food, flowers, plants)</li>
+                                <li>Custom products (special orders or personalized items)</li>
+                                <li>Personal care goods (beauty products)</li>
+                                <li>Hazardous materials, flammable liquids, or gases</li>
+                                <li>Sale items</li>
+                                <li>Gift cards</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">EXCHANGES</h2>
+                            <p>The fastest way to ensure you get what you want is to:</p>
+                            <ol>
+                                <li>Return the item you have</li>
+                                <li>Wait for the return to be accepted</li>
+                                <li>Make a separate purchase for the new item</li>
+                            </ol>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">REFUNDS</h2>
+                            <p>Once we receive and inspect your return, we will notify you about the status of your refund. If approved, you'll be automatically refunded on your original payment method.</p>
+                            <p class="alert alert-info">Please note: It may take some time for your bank or credit card company to process and post the refund.</p>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2 class="h4 text-danger">CONTACT INFORMATION</h2>
+                            <p>If you have any questions about our return policy, please contact us at <a href="mailto:gnomesville@gmail.com">gnomesville@gmail.com</a></p>
+                        </section>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'store' %}" class="btn btn-outline-danger">Return to Store</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .terms-content {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #4a4a4a;
+    }
+    
+    .terms-content section {
+        padding: 1rem;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .terms-content h2 {
+        color: #e74c3c;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #f8d7da;
+    }
+    
+    .terms-content ul, .terms-content ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .terms-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 1rem;
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    .alert {
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .terms-content section {
+            padding: 0.75rem;
+        }
+    }
+</style>
+
+{% endblock content %}
