@@ -16,7 +16,7 @@ class Product(models.Model):
     name =models.CharField(max_length=30)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='images/',null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -110,7 +110,7 @@ class PaymentReceipt(models.Model):
     
     order = models.OneToOneField('Order', on_delete=models.CASCADE, related_name='payment_receipt')
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
-    receipt_image = models.ImageField(upload_to='payment_receipts/')
+    receipt_image = models.ImageField(upload_to='images/payment_receipts/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
     
