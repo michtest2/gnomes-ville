@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Customer(models.Model):
@@ -16,7 +17,8 @@ class Product(models.Model):
     name =models.CharField(max_length=30)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=True)
-    image = models.ImageField(upload_to='images/',null=True, blank=True)
+    image = CloudinaryField('image', null=True, blank=True)
+    #models.ImageField(upload_to='images/',null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -110,7 +112,8 @@ class PaymentReceipt(models.Model):
     
     order = models.OneToOneField('Order', on_delete=models.CASCADE, related_name='payment_receipt')
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
-    receipt_image = models.ImageField(upload_to='images/payment_receipts/')
+    receipt_image = CloudinaryField('image', null=True, blank=True)
+    #models.ImageField(upload_to='images/payment_receipts/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
     
