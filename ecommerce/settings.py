@@ -134,7 +134,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Configuration       
+# Configuration 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET')
+}  
+    
 cloudinary.config(
     cloud_name = config('CLOUD_NAME' , default="") ,
     api_key = config('API_KEY' , default=""),
